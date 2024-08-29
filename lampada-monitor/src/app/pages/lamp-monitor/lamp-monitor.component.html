@@ -1,0 +1,106 @@
+<div class="container d-flex flex-column pt-5 pb-5">
+  <img
+    src="assets/SAO-JUDAS-CAMPUS-UNIMONTE.png"
+    alt="logo são judas"
+    width="350"
+    class="mb-5"
+    style="filter: brightness(2.5)"
+  />
+  <h1 class="mb-3">Avaliação A3 - ODS 7: Energia Limpa e Acessível</h1>
+  <div>
+    <label for="lampadaTipo" class="form-label mb-3 me-2"
+      >Tipo de Lâmpada:</label
+    >
+    <select id="lampadaTipo" class="form-select" [(ngModel)]="selectedLampType">
+      <option value="1">Incandescente</option>
+      <option value="2">Fluorescente</option>
+      <option value="3">LED</option>
+    </select>
+    <br />
+    <label for="qntResultados" class="form-label mb-3 me-2"
+      >Selecione a quantidade de resultados para serem mostrados:
+    </label>
+    <select id="qntResultados" class="form-select" [(ngModel)]="qntResultados">
+      <option value="5">5</option>
+      <option value="10" selected>10</option>
+      <option value="25">25</option>
+      <option value="50">50</option>
+      <option value="">ilimitado</option>
+    </select>
+    <br />
+    <div style="width: 185px">
+      <button class="btn btn-primary mb-3 w-100" (click)="setLampType()">
+        Confirmar
+      </button>
+      <br />
+      <button
+        class="btn w-100"
+        [ngClass]="{ 'btn-success': !isUpdating, 'btn-danger': isUpdating }"
+        (click)="toggleAutoUpdate()"
+      >
+        {{ isUpdating ? "Parar Atualização" : "Continuar Atualização" }}
+      </button>
+    </div>
+    <p class="text-danger mt-5">{{ errMsg }}</p>
+  </div>
+
+  <div *ngIf="lampData.length > 0" class="container-fluid mt-5">
+    <h2>
+      Dados da Lâmpada
+      {{
+        lampType == 1 ? "Incandescente" : lampType == 2 ? "Fluorescente" : "LED"
+      }}
+    </h2>
+
+    <canvas
+      baseChart
+      [data]="lineChartData"
+      [options]="lineChartOptions"
+      [legend]="lineChartLegend"
+      chartType="line"
+    >
+    </canvas>
+
+    <h3 class="mt-5">Dados por tipo</h3>
+
+    <h5 class="mt-5">Corrente (A)</h5>
+    <canvas
+      baseChart
+      [data]="lineChartDataCurrent"
+      [options]="lineChartOptionsCurrent"
+      [legend]="lineChartLegend"
+      chartType="line"
+    >
+    </canvas>
+
+    <h5 class="mt-5">Tensão (V)</h5>
+    <canvas
+      baseChart
+      [data]="lineChartDataVoltage"
+      [options]="lineChartOptionsVoltage"
+      [legend]="lineChartLegend"
+      chartType="line"
+    >
+    </canvas>
+
+    <h5 class="mt-5">Potência (W)</h5>
+    <canvas
+      baseChart
+      [data]="lineChartDataPower"
+      [options]="lineChartOptionsPower"
+      [legend]="lineChartLegend"
+      chartType="line"
+    >
+    </canvas>
+
+    <h5 class="mt-5">Temperatura (°C)</h5>
+    <canvas
+      baseChart
+      [data]="lineChartDataTemperature"
+      [options]="lineChartOptionsTemperature"
+      [legend]="lineChartLegend"
+      chartType="line"
+    >
+    </canvas>
+  </div>
+</div>
